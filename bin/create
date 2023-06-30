@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+const path = require("path");
+const fs = require("fs");
+const inquirer = require('inquirer');
+const Creator= require('./Creator.js')
+// create.js
+const onCreate = (projectName, targetDirectory)=>{
+  const creator = Creator(projectName, targetDirectory);
+}
+
+
+module.exports = async function (projectName, options) {
+  //console.log(projectName, options);
+   // 获取当前工作目录
+  const cwd = process.cwd();
+  // 拼接得到项目目录
+  const targetDirectory = path.join(cwd, projectName);
+  // 判断目录是否存在
+  if (fs.existsSync(targetDirectory)) {
+    if(options.force){
+      fs.rm(targetDirectory,{force:true})
+    }else{
+      let isDelete = await inquirer.prompt([{
+        type: confirm,
+        name:'isDlete',
+        message: `当前目录下已有${projectName}文件，请确认是否删除该目录`
+      }])
+      if(isDelete){
+        fs.rm(targetDirectory,{force:true})
+      }else{
+        return false;
+      }
+    }
+  }else{
+    onCreate(projectName, targetDirectory);
+  }
+
+};

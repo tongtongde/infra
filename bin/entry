@@ -1,11 +1,48 @@
 #!/usr/bin/env node
-
 const program = require("commander");
+const inquirer = require('inquirer');
+
+// new inquirer.prompt([
+//   {
+//     name: "vue",
+//     // 多选交互功能
+//     // 单选将这里修改为 list 即可
+//     type: "checkbox",
+//     message: "Check the features needed for your project:",
+//     choices: [
+//       {
+//         name: "Babel",
+//         checked: true,
+//       },
+//       {
+//         name: "TypeScript",
+//       },
+//       {
+//         name: "Progressive Web App (PWA) Support",
+//       },
+//       {
+//         name: "Router",
+//       },
+//     ],
+//   },
+// ]).then((data) => {
+//   console.log(data);
+// });
 
 program
-  .name('pre')
+  .name('infra')
   .usage('<command> [option]')
   .version('1.0.1');
+
+  program
+  .command("create <project-name>") // 增加创建指令
+  .description("create a new project") // 添加描述信息
+  .option("-f, --force", "overwrite target directory if it exists") // 强制覆盖
+  .action((projectName, cmd) => {
+    // 处理用户输入create 指令附加的参数
+    console.log(projectName, cmd);
+    require("./create")(projectName, cmd);
+  });
 
   // 输出方法
 program.parse(process.argv);
