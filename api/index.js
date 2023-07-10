@@ -10,7 +10,7 @@ axios.interceptors.response.use((res) => {
  * @returns Promise 仓库信息
  */
 async function getZhuRongRepo() {
-  return axios.get("https://api.github.com/orgs/zhurong-cli/repos");
+  return axios.get("https://api.github.com/orgs/tongtongde/repos");
 }
 
 

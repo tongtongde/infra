@@ -39,6 +39,7 @@ program
   .description("create a new project") // 添加描述信息
   .option("-f, --force", "overwrite target directory if it exists") // 强制覆盖
   .action((projectName, cmd) => {
+    //项目名，项目地址
     // 处理用户输入create 指令附加的参数
     console.log(projectName, cmd);
     require("./create")(projectName, cmd);
