@@ -1,4 +1,6 @@
 const {getZhuRongRepo} = require('../api');
+const inquirer = require('inquirer');
+
 let name, target;
 const getTemplate = async  ()=>{
   // 获取模板信息及用户最终选择的模板
