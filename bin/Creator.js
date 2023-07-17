@@ -1,6 +1,9 @@
 // const {getZhuRongRepo} = require('../api');
 // const inquirer = require('inquirer');
+const ora= require("ora");
+
 const download = require("download-git-repo")
+
 let name, target;
 // const getTemplate = async  ()=>{
 //   // 获取模板信息及用户最终选择的模板
@@ -21,12 +24,24 @@ let name, target;
 //     return repo;
 // }
 const create=()=> {
-  console.log(name, target);
   // getTemplate();
-
-  download('github:tongtongde/react-template',target,(error)=>{
-    console.log(error)
+  // 定义一个loading
+  const spinner = ora("download template");
+  // 启动loading
+  spinner.start();
+  
+  download('github:tongtongde/react-template',target,{},(error)=>{
+    if(error){
+      // loading 失败
+      spinner.fail();
+    }else{
+      // loading 成功
+      spinner.succeed();
+    }
   })
+ 
+ 
+  
 
 }
 

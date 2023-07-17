@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const inquirer = require('inquirer');
 const Creator= require('./Creator.js')
+const {rimraf} = require('rimraf');
 // create.js
 const onCreate = (projectName, targetDirectory)=>{
   const creator = Creator(projectName, targetDirectory);
@@ -21,12 +22,14 @@ module.exports = async function (projectName, options) {
       fs.rm(targetDirectory,{force:true})
     }else{
       let isDelete = await inquirer.prompt([{
-        type: confirm,
+        type: 'confirm',
         name:'isDlete',
         message: `当前目录下已有${projectName}文件，请确认是否删除该目录`
       }])
       if(isDelete){
-        fs.rm(targetDirectory,{force:true})
+       await  rimraf(targetDirectory,{})
+       console.log('delete success')
+       onCreate(projectName, targetDirectory);
       }else{
         return false;
       }
